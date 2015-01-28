@@ -1,6 +1,6 @@
 <?php namespace Tests;
 
-use GuiWoda\RouteBinder\Contracts\RouteBinder;
+use GuiWoda\RouteBinder\RouteBinder;
 use GuiWoda\RouteBinder\RouteBinderServiceProvider;
 use Illuminate\Config\Repository;
 use Illuminate\Container\Container;

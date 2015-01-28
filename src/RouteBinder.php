@@ -1,4 +1,4 @@
-<?php namespace GuiWoda\RouteBinder\Contracts;
+<?php namespace GuiWoda\RouteBinder;
 
 use Illuminate\Routing\Router;
 

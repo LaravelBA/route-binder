@@ -1,0 +1,24 @@
+{
+  "name": "guiwoda/route-binder",
+  "description": "Laravel route binding, done right.",
+  "autoload": {
+    "psr-4": {
+      "GuiWoda\\RouteBinder\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "license": "MIT",
+  "require": {
+    "illuminate/support": "~4.2,",
+    "illuminate/config": "~4.2",
+    "illuminate/routing": "~4.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.4",
+    "mockery/mockery": "0.9.*"
+  }
+}

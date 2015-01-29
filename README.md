@@ -1,6 +1,8 @@
 # Route Binder
 Laravel route binding, done right.
 
+[![Build status][https://travis-ci.org/guiwoda/route-binder.svg]][https://travis-ci.org/guiwoda/route-binder]
+
 ## The problem
 Projects start simple: a few routes, maybe some resource controllers, and maybe some parameter binding here and there.
 But soon, the `routes.php` file starts to pile up, spawning hundreds of lines, with complex nested groups and filters

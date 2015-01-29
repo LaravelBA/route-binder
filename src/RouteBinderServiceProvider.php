@@ -19,7 +19,7 @@ final class RouteBinderServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('guiwoda/route-binder', null, realpath(__DIR__ . '/..'));
+        $this->package('guiwoda/route-binder');
 
         $this->bootRoutes();
     }

@@ -9,7 +9,7 @@ that odd route name that you clearly forget because, who remembers those anyway?
 
 This package helps you with (at least) three things:
 
-1. It makes your routes part of your *Application* by [letting you use DI through the IoC container](ioc)
+1. It makes your routes part of your *Application* by [letting you use DI through the IoC container](#ioc)
 2. It lets you split up routes in multiple files (classes) without the need for old-fashioned `includes` or `requires`
 3. As you'll be creating classes, you have an opportunity to declare some string constants and hold references to those nasty route names
 
@@ -36,7 +36,7 @@ Afterwards, you'll need to create some classes that implement the `GuiWoda\Route
 Don't panic! You'll see it's a piece of cake:
  
 ```php
-    <?php namespace App\Http\routes;
+    namespace App\Http\routes;
 
     use GuiWoda\RouteBinder\RouteBinder;
     use Illuminate\Routing\Router;
@@ -59,7 +59,7 @@ Don't panic! You'll see it's a piece of cake:
 
 And add them to the published config file (you find it now in `app/config/packages/guiwoda/route-binder/routes.php`):
 
-```
+```php
     return array(
         App\Http\Routes\FooRouteBinder::class,
         App\Http\Routes\BarRouteBinder::class,
@@ -78,6 +78,7 @@ But this feature, as powerful as it may be, is pretty nasty on your architecture
 is awful, and going `App::make(SomeRepository::class)` doesn't look that much better either.
  
 With this little package, your `RouteBinder` objects can depend on any `Service` or `Repository` layer of your application.
-Now, you could even test those binding by mocking the dependencies and expecting a call to your `find()` method on route resolution!
+Now, you could even test those bindings by mocking the dependencies and expecting a call to whatever `Repository::find()` method 
+you use on route resolution!
  
 This may look like _waaaaaay_ too complicated a scenario right now, but trust me, you'll love it.

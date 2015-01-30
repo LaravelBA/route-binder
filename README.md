@@ -30,7 +30,7 @@ As usual, include the `ServiceProvider` in your `app/config/app.php` file like s
 
 Then, publish the package's configuration:
 
-```
+```bash
     php artisan config:publish guiwoda/route-binder
 ```
 
@@ -38,21 +38,27 @@ Afterwards, you'll need to create some classes that implement the `GuiWoda\Route
 Don't panic! You'll see it's a piece of cake:
  
 ```php
-    namespace App\Http\routes;
+    namespace App\Http\Routes;
 
     use GuiWoda\RouteBinder\RouteBinder;
     use Illuminate\Routing\Router;
 
     class FooRouteBinder implements RouteBinder
     {
-        // This is what I meant with #3 up there. Completely optional, but highly recommended.
+        /**
+         * This is what I meant with #3 up there.
+         * Completely optional, but highly recommended.
+         */
         const INDEX = 'foo.index';
         
+        /**
+         * The $router instance is the same as what you get
+         * when you use the Route facade! No change there ;-)
+         */
         public function bind(Router $router)
         {
             $router->get('foo', ['as' => self::INDEX, 'uses' => function(){
-                // The $router instance is the same as what you get
-                // when you use the Route facade! No change there ;-)
+                return \View::make('hello');
             }]);
         }
     }

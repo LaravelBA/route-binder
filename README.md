@@ -1,7 +1,7 @@
 # Route Binder
 Laravel route binding, done right.
 
-[![Build Status](https://travis-ci.org/guiwoda/route-binder.svg)](https://travis-ci.org/guiwoda/route-binder)
+[![Build Status](https://travis-ci.org/guiwoda/route-binder.svg?branch=laravel4)](https://travis-ci.org/guiwoda/route-binder)
 
 ## The problem
 Projects start simple: a few routes, maybe some resource controllers, and maybe some parameter binding here and there.

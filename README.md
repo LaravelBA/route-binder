@@ -1,7 +1,7 @@
 # Route Binder
 Laravel route binding, done right.
 
-[![Build Status](https://travis-ci.org/guiwoda/route-binder.svg)](https://travis-ci.org/guiwoda/route-binder)
+[![Build Status](https://travis-ci.org/guiwoda/route-binder.svg?branch=master)](https://travis-ci.org/guiwoda/route-binder)
 
 ## The problem
 Projects start simple: a few routes, maybe some resource controllers, and maybe some parameter binding here and there.
@@ -18,68 +18,69 @@ This package helps you with (at least) three things:
 ## The solution
 This package is just a contract, a config file and a `ServiceProvider`.
 
-As usual, include the `ServiceProvider` in your `app/config/app.php` file like so:
+As usual, include the `ServiceProvider` in your `config/app.php` file like so:
 
 ```php
-    'providers' => array(
-        // ...
-        GuiWoda\RouteBinder\RouteBinderServiceProvider::class, // php5.5, nice! ;-)
-        // ...
-    )
+'providers' => [
+    // ...
+    GuiWoda\RouteBinder\RouteBinderServiceProvider::class,
+    // ...
+]
 ```
 
 Then, publish the package's configuration:
 
 ```bash
-    php artisan config:publish guiwoda/route-binder
+php artisan vendor:publish --provider="GuiWoda\RouteBinder\RouteBinderServiceProvider"
 ```
 
 Afterwards, you'll need to create some classes that implement the `GuiWoda\RouteBinder\RouteBinder` interface.
 Don't panic! You'll see it's a piece of cake:
  
 ```php
-    namespace App\Http\Routes;
+namespace App\Http\Routes;
 
-    use GuiWoda\RouteBinder\RouteBinder;
-    use Illuminate\Routing\Router;
+use GuiWoda\RouteBinder\RouteBinder;
+use Illuminate\Routing\Router;
 
-    class FooRouteBinder implements RouteBinder
-    {
-        /**
-         * This is what I meant with #3 up there.
-         * Completely optional, but highly recommended.
-         */
-        const INDEX = 'foo.index';
-        
-        /**
-         * The $router instance is the same as what you get
-         * when you use the Route facade! No change there ;-)
-         */
-        public function bind(Router $router)
-        {
-            $router->get('foo', ['as' => self::INDEX, 'uses' => function(){
-                return \View::make('hello');
-            }]);
-        }
-    }
+class FooRouteBinder implements RouteBinder
+{
+    /**
+     * This is what I meant with #3 up there.
+     * Completely optional, but highly recommended.
+     */
+    const INDEX = 'foo.index';
     
+    /**
+     * The $router instance is the same as what you get
+     * when you use the Route facade! No change there ;-)
+     */
+    public function bind(Router $router)
+    {
+        $router->get('foo', ['as' => self::INDEX, 'uses' => function(){
+            return view('hello');
+        }]);
+    }
+}
 ```
 
-And add them to the published config file (you find it now in `app/config/packages/guiwoda/route-binder/routes.php`):
+And add them to the published config file (you find it now in `config/route-binder.php`):
 
 ```php
-    return array(
+return [
+    'binders' => [
         App\Http\Routes\FooRouteBinder::class,
         App\Http\Routes\BarRouteBinder::class,
         App\Http\Routes\BazRouteBinder::class,
         App\Http\Routes\AwesomeRouteBinder::class,
-    );
+    ]
+];
 ```
 
 And you're done! Now all your routes are nicely organized, and if things get out of hand, you can always split 'em up more!
 
 ## <a name="ioc"></a> The IoC Container
-I love Laravel's [Route model binding](http://laravel.com/docs/4.2/routing#route-model-binding) functionality. I must 
+I love Laravel's [Route model binding](http://laravel.com/docs/routing#route-model-binding) functionality. I must 
 confess tho, I don't use Eloquent, so I always go for the `Route::bind()` option.
 
 But this feature, as powerful as it may be, is pretty nasty on your architecture. Having calls to the DB on the `routes.php` file

@@ -7,12 +7,12 @@ return [
      *
      * Example (with suggested php5.5 syntax):
      *
-     * 'routes' = [
+     * 'binders' = [
      *      App\Http\Routes\HomeRouteBinder::class,
      *      App\Http\Routes\FooRouteBinder::class,
      * ]
      */
-    'routes' => [
+    'binders' => [
 
     ]
 ];

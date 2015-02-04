@@ -39,7 +39,7 @@ class RouteBinderServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $configMock
             ->shouldReceive('get')
-            ->with('route-binder::routes')
+            ->with('route-binder.binders')
             ->andReturn($routeBinders);
 
         $routeBinderMock

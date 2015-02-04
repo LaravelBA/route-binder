@@ -48,7 +48,7 @@ final class RouteBinderServiceProvider extends ServiceProvider
      */
     public function bootRoutes(Repository $config, Registrar $router)
     {
-        foreach ($config->get('route-binder.routes') as $binder)
+        foreach ($config->get('route-binder.binders') as $binder)
         {
             $this->app->make($binder)->bind($router);
         }

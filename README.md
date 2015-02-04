@@ -41,7 +41,7 @@ Don't panic! You'll see it's a piece of cake:
 namespace App\Http\Routes;
 
 use GuiWoda\RouteBinder\RouteBinder;
-use Illuminate\Routing\Router;
+use Illuminate\Contracts\Routing\Registrar;
 
 class FooRouteBinder implements RouteBinder
 {
@@ -52,10 +52,10 @@ class FooRouteBinder implements RouteBinder
     const INDEX = 'foo.index';
     
     /**
-     * The $router instance is the same as what you get
+     * The $router instance is the same as what you'd get
      * when you use the Route facade! No change there ;-)
      */
-    public function bind(Router $router)
+    public function bind(Registrar $router)
     {
         $router->get('foo', ['as' => self::INDEX, 'uses' => function(){
             return view('hello');

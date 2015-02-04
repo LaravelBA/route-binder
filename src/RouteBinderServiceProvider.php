@@ -34,7 +34,7 @@ final class RouteBinderServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/config/route-binder.php' => $this->app->make('path.config') . '/route-binder.php',
-        ]);
+        ], 'config');
 
         $this->bootRoutes($config, $router);
     }

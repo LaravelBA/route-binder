@@ -2,9 +2,9 @@
 
 use GuiWoda\RouteBinder\RouteBinder;
 use GuiWoda\RouteBinder\RouteBinderServiceProvider;
-use Illuminate\Config\Repository;
-use Illuminate\Container\Container;
-use Illuminate\Routing\Router;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Routing\Registrar as Router;
 
 class RouteBinderServiceProviderTest extends \PHPUnit_Framework_TestCase
 {
@@ -49,6 +49,6 @@ class RouteBinderServiceProviderTest extends \PHPUnit_Framework_TestCase
 
         $sp = new RouteBinderServiceProvider($appMock);
 
-        $sp->bootRoutes();
+        $sp->bootRoutes($configMock, $routerMock);
     }
 }

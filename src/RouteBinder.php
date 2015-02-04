@@ -1,6 +1,6 @@
 <?php namespace GuiWoda\RouteBinder;
 
-use Illuminate\Routing\Router;
+use Illuminate\Contracts\Routing\Registrar;
 
 interface RouteBinder
 {
@@ -9,8 +9,8 @@ interface RouteBinder
      * You may also bind parameters, filters or anything you need to do
      * with the router here.
      *
-     * @param \Illuminate\Routing\Router $router
+     * @param \Illuminate\Contracts\Routing\Registrar $router
      * @return void
      */
-    public function bind(Router $router);
+    public function bind(Registrar $router);
 }

@@ -20,7 +20,7 @@ final class RouteBinderServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/config/route-binder.php', 'route-binder');
+        //
     }
 
     /**
@@ -35,6 +35,8 @@ final class RouteBinderServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/config/route-binder.php' => $this->app->make('path.config') . '/route-binder.php',
         ], 'config');
+
+        $this->mergeConfigFrom(__DIR__.'/config/route-binder.php', 'route-binder');
 
         $this->bootRoutes($config, $router);
     }

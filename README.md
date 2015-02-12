@@ -6,7 +6,7 @@ Laravel route binding, done right.
 ## Laravel 4 or 5?
 The _master_ branch holds code compatible with Laravel 5. Releases for Laravel 5 start from the 3.0 tag.
 
-For the Laravel 4 compatible release, go to [the laravel4 branch](tree/laravel4).
+For the Laravel 4 compatible release, go to [the laravel4 branch](https://github.com/LaravelBA/route-binder/tree/laravel4).
 
 ## The problem
 Projects start simple: a few routes, maybe some resource controllers, and maybe some parameter binding here and there.

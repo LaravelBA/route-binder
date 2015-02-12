@@ -1,9 +1,9 @@
 {
-  "name": "guiwoda/route-binder",
+  "name": "laravelba/route-binder",
   "description": "Laravel route binding, done right.",
   "autoload": {
     "psr-4": {
-      "GuiWoda\\RouteBinder\\": "src/"
+      "LaravelBA\\RouteBinder\\": "src/"
     }
   },
   "autoload-dev": {

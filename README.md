@@ -23,7 +23,7 @@ As usual, include the `ServiceProvider` in your `config/app.php` file like so:
 ```php
 'providers' => [
     // ...
-    GuiWoda\RouteBinder\RouteBinderServiceProvider::class,
+    LaravelBA\RouteBinder\RouteBinderServiceProvider::class,
     // ...
 ]
 ```
@@ -31,16 +31,16 @@ As usual, include the `ServiceProvider` in your `config/app.php` file like so:
 Then, publish the package's configuration:
 
 ```bash
-php artisan vendor:publish --provider="GuiWoda\RouteBinder\RouteBinderServiceProvider"
+php artisan vendor:publish --provider="LaravelBA\RouteBinder\RouteBinderServiceProvider"
 ```
 
-Afterwards, you'll need to create some classes that implement the `GuiWoda\RouteBinder\RouteBinder` interface.
+Afterwards, you'll need to create some classes that implement the `LaravelBA\RouteBinder\RouteBinder` interface.
 Don't panic! You'll see it's a piece of cake:
  
 ```php
 namespace App\Http\Routes;
 
-use GuiWoda\RouteBinder\RouteBinder;
+use LaravelBA\RouteBinder\RouteBinder;
 use Illuminate\Contracts\Routing\Registrar;
 
 class FooRouteBinder implements RouteBinder

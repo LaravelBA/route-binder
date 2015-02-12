@@ -1,4 +1,4 @@
-<?php namespace GuiWoda\RouteBinder;
+<?php namespace LaravelBA\RouteBinder;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\Registrar;

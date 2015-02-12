@@ -1,7 +1,7 @@
 <?php namespace Tests;
 
-use GuiWoda\RouteBinder\RouteBinder;
-use GuiWoda\RouteBinder\RouteBinderServiceProvider;
+use LaravelBA\RouteBinder\RouteBinder;
+use LaravelBA\RouteBinder\RouteBinderServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Routing\Registrar as Router;

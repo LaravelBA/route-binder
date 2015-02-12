@@ -3,6 +3,11 @@ Laravel route binding, done right.
 
 [![Build Status](https://travis-ci.org/guiwoda/route-binder.svg?branch=laravel4)](https://travis-ci.org/guiwoda/route-binder)
 
+# Note about namespaces
+The current master branch has moved to the `LaravelBA` namespace. This introduced a BC breakage and moved the release to a new major version.
+
+*This branch will keep the GuiWoda namespace*, as it's a maintainance branch and we don't want to push forward BC breakage here.
+
 ## The problem
 Projects start simple: a few routes, maybe some resource controllers, and maybe some parameter binding here and there.
 But soon, the `routes.php` file starts to pile up, spawning hundreds of lines, with complex nested groups and filters

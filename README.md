@@ -3,6 +3,11 @@ Laravel route binding, done right.
 
 [![Build Status](https://travis-ci.org/guiwoda/route-binder.svg?branch=master)](https://travis-ci.org/guiwoda/route-binder)
 
+## Laravel 4 or 5?
+The _master_ branch holds code compatible with Laravel 5. Releases for Laravel 5 start from the 3.0 tag.
+
+For the Laravel 4 compatible release, go to [the laravel4 branch](tree/laravel4).
+
 ## The problem
 Projects start simple: a few routes, maybe some resource controllers, and maybe some parameter binding here and there.
 But soon, the `routes.php` file starts to pile up, spawning hundreds of lines, with complex nested groups and filters

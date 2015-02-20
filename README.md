@@ -1,7 +1,7 @@
 # Route Binder
 Laravel route binding, done right.
 
-[![Build Status](https://travis-ci.org/guiwoda/route-binder.svg?branch=laravel4)](https://travis-ci.org/guiwoda/route-binder)
+[![Build Status](https://travis-ci.org/LaravelBA/route-binder.svg?branch=laravel4)](https://travis-ci.org/LaravelBA/route-binder)
 
 # Note about namespaces
 The current master branch has moved to the `LaravelBA` namespace. This introduced a BC breakage and moved the release to a new major version.

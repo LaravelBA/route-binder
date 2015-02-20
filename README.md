@@ -1,7 +1,7 @@
 # Route Binder
 Laravel route binding, done right.
 
-[![Build Status](https://travis-ci.org/guiwoda/route-binder.svg?branch=master)](https://travis-ci.org/guiwoda/route-binder)
+[![Build Status](https://travis-ci.org/LaravelBA/route-binder.svg?branch=master)](https://travis-ci.org/LaravelBA/route-binder)
 
 ## Laravel 4 or 5?
 The _master_ branch holds code compatible with Laravel 5. Releases for Laravel 5 start from the 3.0 tag.

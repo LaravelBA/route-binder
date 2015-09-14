@@ -47,20 +47,24 @@ namespace App\Http\Routes;
 
 use LaravelBA\RouteBinder\RouteBinder;
 use Illuminate\Contracts\Routing\Registrar;
+use Illuminate\Routing\Router;
 
-class FooRouteBinder implements RouteBinder
+class FooRoutes implements RouteBinder
 {
     /**
      * This is what I meant with #3 up there.
      * Completely optional, but highly recommended.
      */
     const INDEX = 'foo.index';
-    
-    /**
-     * The $router instance is the same as what you'd get
-     * when you use the Route facade! No change there ;-)
-     */
-    public function bind(Registrar $router)
+
+    public function addBindings(Router $router)
+    {
+        $router->bind('user_id', function(){
+            // Fetch your User object here!
+        });
+    }
+
+    public function addRoutes(Registrar $router)
     {
         $router->get('foo', ['as' => self::INDEX, 'uses' => function(){
             return view('hello');
@@ -69,15 +73,15 @@ class FooRouteBinder implements RouteBinder
 }
 ```
 
-And add them to the published config file (you find it now in `config/route-binder.php`):
+And add them to the published config file (you find it now in `config/routes.php`):
 
 ```php
 return [
     'binders' => [
-        App\Http\Routes\FooRouteBinder::class,
-        App\Http\Routes\BarRouteBinder::class,
-        App\Http\Routes\BazRouteBinder::class,
-        App\Http\Routes\AwesomeRouteBinder::class,
+        App\Http\Routes\FooRoutes::class,
+        App\Http\Routes\BarRoutes::class,
+        App\Http\Routes\BazRoutes::class,
+        App\Http\Routes\AwesomeRoutes::class,
     ]
 ];
 ```
@@ -85,11 +89,10 @@ return [
 And you're done! Now all your routes are nicely organized, and if things get out of hand, you can always split 'em up more!
 
 ## <a name="ioc"></a> The IoC Container
-I love Laravel's [Route model binding](http://laravel.com/docs/routing#route-model-binding) functionality. I must 
-confess tho, I don't use Eloquent, so I always go for the `Route::bind()` option.
+I love Laravel's Route model binding functionality. I must confess though, I don't use Eloquent, so I always go for the `Route::bind()` option.
 
 But this feature, as powerful as it may be, is pretty nasty on your architecture. Having calls to the DB on the `routes.php` file
-is awful, and going `App::make(SomeRepository::class)` doesn't look that much better either.
+is awful, and going `App::make(SomeRepository::class)` does not look that much better either.
  
 With this little package, your `RouteBinder` objects can depend on any `Service` or `Repository` layer of your application.
 Now, you could even test those bindings by mocking the dependencies and expecting a call to whatever `Repository::find()` method 

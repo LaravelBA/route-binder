@@ -72,7 +72,7 @@ final class RouteBinderServiceProvider extends ServiceProvider
      */
     protected function getBinders(Repository $config)
     {
-        foreach ($config->get('routes.binders') as $binder) {
+        foreach ($config->get('routes.binders', []) as $binder) {
             yield $this->app->make($binder);
         }
     }

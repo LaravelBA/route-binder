@@ -49,17 +49,19 @@ final class RouteBinderServiceProvider extends ServiceProvider
      */
     protected function bootBinders(Repository $config, Registrar $router)
     {
+        $cached = $this->app->routesAreCached();
+
         foreach ($this->getBinders($config) as $binder) {
             if ($router instanceof \Illuminate\Routing\Router) {
                 $binder->addBindings($router);
             }
 
-            if (! $this->app->routesAreCached()) {
+            if (! $cached) {
                 $binder->addRoutes($router);
             }
         }
 
-        if ($this->app->routesAreCached()) {
+        if ($cached) {
             $this->loadCachedRoutes();
         }
     }
@@ -82,7 +84,7 @@ final class RouteBinderServiceProvider extends ServiceProvider
      */
     protected function loadCachedRoutes()
     {
-        $this->app->booted(function () {
+        $this->app->booted(function(){
             require $this->app->getCachedRoutesPath();
         });
     }

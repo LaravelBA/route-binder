@@ -31,7 +31,7 @@ class RouteBinderServiceProvider extends RouteServiceProvider
         parent::boot();
     }
 
-    protected function bind(Registrar $router)
+    public function bind(Registrar $router)
     {
         if ($router instanceof \Illuminate\Routing\Router) {
             foreach ($this->getBindings() as $binder) {
@@ -46,7 +46,7 @@ class RouteBinderServiceProvider extends RouteServiceProvider
      *
      * @return void
      */
-    protected function map(Registrar $router)
+    public function map(Registrar $router)
     {
         foreach ($this->getRoutes() as $binder) {
             $binder->addRoutes($router);
@@ -78,7 +78,7 @@ class RouteBinderServiceProvider extends RouteServiceProvider
      *
      * @return Routes[]|Bindings[]
      */
-    protected function makeBinders(Repository $config)
+    public function makeBinders(Repository $config)
     {
         $binders = [];
         foreach ($config->get('routes.binders', []) as $binder) {

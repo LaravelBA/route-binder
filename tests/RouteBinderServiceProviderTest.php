@@ -56,7 +56,7 @@ class RouteBinderServiceProviderTest extends MockeryTestCase
         $this->appMock->shouldReceive('routesAreCached')->andReturn(true);
         $this->appMock->shouldReceive('call');
 
-        $this->sp->boot();
+        $this->sp->boot($this->routerMock);
 
         $paths = ServiceProvider::pathsToPublish(RouteBinderServiceProvider::class, 'config');
 
@@ -73,7 +73,7 @@ class RouteBinderServiceProviderTest extends MockeryTestCase
         $this->appMock->shouldReceive('routesAreCached')->andReturn(false);
         $this->expectBinders();
 
-        $this->sp->boot();
+        $this->sp->boot($this->routerMock);
     }
 
     protected function expectBinders()

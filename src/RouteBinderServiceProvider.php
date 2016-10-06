@@ -4,21 +4,22 @@ namespace LaravelBA\RouteBinder;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 
 class RouteBinderServiceProvider extends RouteServiceProvider
 {
+    protected $namespace = null;
+
     /**
      * @var Routes[]|Bindings[]
      */
     protected $binders;
 
     /**
-     * Bootstrap any application services.
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function boot()
+    public function boot(Router $router = null)
     {
         $this->publishes([
             dirname(__DIR__) . '/config/routes.php' => $this->app->make('path.config') . '/routes.php',
@@ -28,7 +29,7 @@ class RouteBinderServiceProvider extends RouteServiceProvider
 
         $this->app->call([$this, 'bind']);
 
-        parent::boot();
+        parent::boot($router);
     }
 
     public function bind(Registrar $router)

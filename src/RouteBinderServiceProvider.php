@@ -3,89 +3,88 @@ namespace LaravelBA\RouteBinder;
 
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\Registrar;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
+use Illuminate\Support\Collection;
 
-final class RouteBinderServiceProvider extends ServiceProvider
+class RouteBinderServiceProvider extends RouteServiceProvider
 {
     /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
+     * @var Routes[]|Bindings[]
      */
-    protected $defer = false;
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        // No need to merge original
-    }
+    protected $binders;
 
     /**
      * Bootstrap any application services.
      *
-     * @param \Illuminate\Contracts\Config\Repository $config
-     * @param \Illuminate\Contracts\Routing\Registrar $router
      * @return void
      */
-    public function boot(Repository $config, Registrar $router)
+    public function boot()
     {
         $this->publishes([
             dirname(__DIR__) . '/config/routes.php' => $this->app->make('path.config') . '/routes.php',
         ], 'config');
 
-        $this->bootBinders($config, $router);
+        $this->binders = $this->app->call([$this, 'makeBinders']);
+
+        $this->app->call([$this, 'bind']);
+
+        parent::boot();
     }
 
-    /**
-     * Register routes on boot
-     *
-     * @param Repository $config
-     * @param Registrar  $router
-     * @return void
-     */
-    protected function bootBinders(Repository $config, Registrar $router)
+    protected function bind(Registrar $router)
     {
-        $cached = $this->app->routesAreCached();
-
-        foreach ($this->getBinders($config) as $binder) {
-            if ($router instanceof \Illuminate\Routing\Router) {
+        if ($router instanceof \Illuminate\Routing\Router) {
+            foreach ($this->getBindings() as $binder) {
                 $binder->addBindings($router);
             }
-
-            if (! $cached) {
-                $binder->addRoutes($router);
-            }
         }
-
-        if ($cached) {
-            $this->loadCachedRoutes();
+    }
+    /**
+     * Register routes on boot.
+     *
+     * @param Registrar $router
+     *
+     * @return void
+     */
+    protected function map(Registrar $router)
+    {
+        foreach ($this->getRoutes() as $binder) {
+            $binder->addRoutes($router);
         }
+    }
+
+    /**
+     * @return Bindings[]|Collection
+     */
+    protected function getBindings()
+    {
+        return Collection::make($this->binders)->filter(function ($item) {
+            return $item instanceof Bindings;
+        });
+    }
+
+    /**
+     * @return Routes[]|Collection
+     */
+    protected function getRoutes()
+    {
+        return Collection::make($this->binders)->filter(function ($item) {
+            return $item instanceof Routes;
+        });
     }
 
     /**
      * @param Repository $config
-     * @return RouteBinder[]
-     */
-    protected function getBinders(Repository $config)
-    {
-        foreach ($config->get('routes.binders', []) as $binder) {
-            yield $this->app->make($binder);
-        }
-    }
-
-    /**
-     * Load the cached routes for the application.
      *
-     * @return void
+     * @return Routes[]|Bindings[]
      */
-    protected function loadCachedRoutes()
+    protected function makeBinders(Repository $config)
     {
-        $this->app->booted(function(){
-            require $this->app->getCachedRoutesPath();
-        });
+        $binders = [];
+        foreach ($config->get('routes.binders', []) as $binder) {
+            $binders[] = $this->app->make($binder);
+        }
+
+        return $binders;
     }
 }

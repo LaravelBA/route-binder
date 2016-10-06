@@ -100,7 +100,7 @@ class RouteBinderServiceProviderTest extends MockeryTestCase
      *
      * @return \Closure
      */
-    protected function returnUsingAppCall(...$params): \Closure
+    protected function returnUsingAppCall(...$params)
     {
         return function ($args) use ($params) {
             list($sp, $method) = $args;

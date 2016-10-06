@@ -21,7 +21,7 @@ This package helps you with (at least) three things:
 3. As you'll be creating classes, you have an opportunity to declare some string constants and hold references to those nasty route names
 
 ## The solution
-This package is just a contract, a config file and a `ServiceProvider`.
+This package is just two contracts, a config file and a `ServiceProvider`.
 
 As usual, include the `ServiceProvider` in your `config/app.php` file like so:
 
@@ -39,17 +39,18 @@ Then, publish the package's configuration:
 php artisan vendor:publish --provider="LaravelBA\RouteBinder\RouteBinderServiceProvider"
 ```
 
-Afterwards, you'll need to create some classes that implement the `LaravelBA\RouteBinder\RouteBinder` interface.
+Afterwards, you'll need to create some classes that implement either the `LaravelBA\RouteBinder\Routes` interface, the `LaravelBA\RouteBinder\Bindings` interface or both.
 Don't panic! You'll see it's a piece of cake:
  
 ```php
 namespace App\Http\Routes;
 
-use LaravelBA\RouteBinder\RouteBinder;
 use Illuminate\Contracts\Routing\Registrar;
 use Illuminate\Routing\Router;
+use LaravelBA\RouteBinder\Bindings;
+use LaravelBA\RouteBinder\Routes;
 
-class FooRoutes implements RouteBinder
+class FooRoutes implements Routes, Bindings
 {
     /**
      * This is what I meant with #3 up there.
@@ -57,6 +58,9 @@ class FooRoutes implements RouteBinder
      */
     const INDEX = 'foo.index';
 
+    /**
+     * This one is required if you implement the Bindings interface
+     */
     public function addBindings(Router $router)
     {
         $router->bind('user_id', function(){
@@ -64,6 +68,9 @@ class FooRoutes implements RouteBinder
         });
     }
 
+    /**
+     * This one is required if you implement the Routes interface
+     */
     public function addRoutes(Registrar $router)
     {
         $router->get('foo', ['as' => self::INDEX, 'uses' => function(){
@@ -94,7 +101,7 @@ I love Laravel's Route model binding functionality. I must confess though, I don
 But this feature, as powerful as it may be, is pretty nasty on your architecture. Having calls to the DB on the `routes.php` file
 is awful, and going `App::make(SomeRepository::class)` does not look that much better either.
  
-With this little package, your `RouteBinder` objects can depend on any `Service` or `Repository` layer of your application.
+With this little package, your `Bindings` objects can depend on any `Service` or `Repository` layer of your application.
 Now, you could even test those bindings by mocking the dependencies and expecting a call to whatever `Repository::find()` method 
 you use on route resolution!
  
